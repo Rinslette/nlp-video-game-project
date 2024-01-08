@@ -13,6 +13,23 @@ with open('svmBOW.pkl', 'rb') as model_file:
 with open('BOWvectorizer.pkl', 'rb') as vectorizer_file:
     vectorizer = pickle.load(vectorizer_file)
 
+# Set custom background image
+st.set_page_config(
+    page_title="Game Genre Prediction App",
+    page_icon="🎮",
+    layout="wide",
+    initial_sidebar_state="collapsed",
+)
+background_image_style = """
+    <style>
+        body {
+            background-image: url('https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.pxfuel.com%2Fen%2Fdesktop-wallpaper-obrwv&psig=AOvVaw2AzUpIV1SbFmViNrPdSJ4q&ust=1704813932086000&source=images&cd=vfe&opi=89978449&ved=0CBIQjRxqFwoTCNCfl_uMzoMDFQAAAAAdAAAAABAD');
+            background-size: cover;
+        }
+    </style>
+"""
+st.markdown(background_image_style, unsafe_allow_html=True)
+
 # Streamlit app title and description
 st.title("Game Genre Prediction App")
 st.write("Enter the name of the game, and I'll predict its genre!")
@@ -42,12 +59,15 @@ if user_input:
     # Make prediction using the loaded model
     prediction = model.predict(input_vectorized)[0]
 
-    # Display the predicted genre
-    st.write(f"Predicted Genre: {prediction}")
+    # Display the predicted genre with a border shape
+    st.markdown(
+        f'<div style="border: 2px solid white; padding: 10px; border-radius: 10px; background-color: rgba(255, 255, 255, 0.5);">{prediction}</div>',
+        unsafe_allow_html=True,
+    )
 else:
     st.info("Please enter the name of the game to predict its genre.")
 
-
+# Embed Landbot using HTML iframe
 components.html(
     """
    <iframe width="350" height="430" allow="microphone;" src="https://console.dialogflow.com/api-client/demo/embedded/124565ef-4cda-4604-8fee-c4c577e7dc55"></iframe>
