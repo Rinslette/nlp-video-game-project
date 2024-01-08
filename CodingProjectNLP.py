@@ -16,7 +16,7 @@ import re
 from sklearn.preprocessing import MultiLabelBinarizer
 
 # Load the data
-df = pd.read_csv('C:/Users/NAS/Documents/uni stuffs/Y3 S1/nlp/vgsales_Clean.csv')
+df = pd.read_csv('/vgsales_Clean.csv')
 # Reduce dataframe to feature 'Name', and label 'Genre'
 df = df[['Name','Genre']].copy()
 df.head()
