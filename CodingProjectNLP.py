@@ -7,14 +7,9 @@ import pickle
 
 # Load the trained model and vectorizer using pickle
 with open('svmBOW.pkl', 'rb') as model_file:
-    saved_objects = pickle.load(model_file)
     model = pickle.load(model_file)
-
-# Unpack the tuple
-bow_vectorizer, model = saved_objects
 with open('BOWvectorizer.pkl', 'rb') as vectorizer_file:
     vectorizer = pickle.load(vectorizer_file)
-
 # Streamlit app title and description
 st.title("Game Genre Prediction App")
 st.write("Enter the name of the game, and I'll predict its genre!")
@@ -34,11 +29,8 @@ if user_input:
         return text
     # Clean the user input
     cleaned_input = clean_text(user_input)
-
     # Transform the input using the loaded vectorizer
-    input_vectorized = bow_vectorizer.transform([cleaned_input])
     input_vectorized = vectorizer.transform([cleaned_input])
-
     # Make prediction using the loaded model
     prediction = model.predict(input_vectorized)[0]
     # Display the predicted genre
