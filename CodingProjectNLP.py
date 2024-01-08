@@ -50,14 +50,50 @@ if user_input:
 else:
     st.info("Please enter the name of the game to predict its genre.")
 
-chatbot_button = st.button("Chatbot")
+# Add a rounded logo chat button in the bottom-left corner
+st.markdown(
+    """
+    <style>
+        .chat-button {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background-color: #007BFF;
+            border-radius: 50%;
+            padding: 10px;
+            cursor: pointer;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
 
-# Embed Landbot using HTML iframe
-if chatbot_button:
-    components.html(
-        """
-        <iframe width="350" height="430" allow="microphone;" src="https://console.dialogflow.com/api-client/demo/embedded/124565ef-4cda-4604-8fee-c4c577e7dc55"></iframe>
-        """,
-        height=440,
-        width=360,
-    )
+        .chat-button img {
+            width: 30px;
+            height: 30px;
+        }
+    </style>
+    <div class="chat-button" onclick="toggleChatbot()">
+        <img src="https://example.com/your_logo.png" alt="Chatbot Logo">
+    </div>
+
+    <script>
+        let chatbotVisible = true;
+
+        function toggleChatbot() {
+            // Toggle chatbot visibility
+            chatbotVisible = !chatbotVisible;
+
+            // Use Streamlit components to update visibility
+            Streamlit.setComponentValue(chatbotVisible, 'chatbotVisibility');
+        }
+    </script>
+    """,
+    unsafe_allow_html=True,
+)
+
+# Use Streamlit components to control chatbot visibility
+chatbot_visibility = st.components.v1.html('<div></div>', height=0)
+if chatbot_visibility.value:
+    st.components.v1.iframe("https://console.dialogflow.com/api-client/demo/embedded/124565ef-4cda-4604-8fee-c4c577e7dc55", height=430, width=350)
