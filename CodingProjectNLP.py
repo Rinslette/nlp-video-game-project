@@ -31,7 +31,7 @@ model = SVC(kernel='linear')
 bow_vectorizer = CountVectorizer(analyzer='word', ngram_range=(1, 2))
 
 # Load the data
-df = pd.read_csv('./Balance.csv')
+df = pd.read_csv('./vgsales_Clean.csv')
 
 # Clean the 'Name' column
 df['Name'] = df['Name'].apply(clean_text)
