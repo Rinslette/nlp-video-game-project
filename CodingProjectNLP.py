@@ -1,6 +1,6 @@
 import streamlit as st
 import pandas as pd
-from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
 import joblib  # Use joblib directly for loading the .pkl file
 import nltk
 import re
@@ -30,7 +30,7 @@ def clean_text(text):
 model = joblib.load('./svmTFIDF_model.pkl')  # Replace 'your_model.pkl' with the actual file name
 
 # Load the data
-df = pd.read_csv('./vgsales_Clean.csv')
+df = pd.read_csv('./vssales_Clean.csv')
 
 # Clean the 'Name' column
 df['Name'] = df['Name'].apply(clean_text)
@@ -44,6 +44,11 @@ xtrain, xval, ytrain, yval = train_test_split(x, y, test_size=0.2)
 bow_vectorizer = CountVectorizer(analyzer='word', ngram_range=(1, 2))
 xtrain_bow = bow_vectorizer.fit_transform(xtrain)
 xval_bow = bow_vectorizer.transform(xval)
+
+# Create the TF-IDF features
+tfidf_vectorizer = TfidfVectorizer(analyzer='word', ngram_range=(1, 2))
+xtrain_tfidf = tfidf_vectorizer.fit_transform(xtrain)
+xval_tfidf = tfidf_vectorizer.transform(xval)
 
 # Streamlit app
 st.title("Video Game Genre Prediction App")
@@ -59,10 +64,17 @@ if user_input:
     # Clean the user input
     cleaned_input = clean_text(user_input)
 
-    # Vectorize the cleaned input
-    input_vectorized = bow_vectorizer.transform([cleaned_input])
+    # Vectorize the cleaned input for BOW
+    input_vectorized_bow = bow_vectorizer.transform([cleaned_input])
 
-    # Make prediction using the loaded model
-    prediction = model.predict(input_vectorized)[0]
+    # Vectorize the cleaned input for TF-IDF
+    input_vectorized_tfidf = tfidf_vectorizer.transform([cleaned_input])
 
-    st.success(f"The predicted genre for '{user_input}' is: {prediction}")
+    # Make prediction using the loaded model for BOW
+    prediction_bow = model.predict(input_vectorized_bow)[0]
+
+    # Make prediction using the loaded model for TF-IDF
+    prediction_tfidf = model.predict(input_vectorized_tfidf)[0]
+
+    st.success(f"The predicted genre for '{user_input}' (using BOW) is: {prediction_bow}")
+    st.success(f"The predicted genre for '{user_input}' (using TF-IDF) is: {prediction_tfidf}")
