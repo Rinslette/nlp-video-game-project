@@ -13,7 +13,7 @@ with open('svmBOW.pkl', 'rb') as model_file:
 with open('BOWvectorizer.pkl', 'rb') as vectorizer_file:
     vectorizer = pickle.load(vectorizer_file)
 
-# Set custom background image
+# Set custom background image from a local directory
 st.set_page_config(
     page_title="Game Genre Prediction App",
     page_icon="🎮",
@@ -23,7 +23,7 @@ st.set_page_config(
 background_image_style = """
     <style>
         body {
-            background-image: url('https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.pxfuel.com%2Fen%2Fdesktop-wallpaper-obrwv&psig=AOvVaw2AzUpIV1SbFmViNrPdSJ4q&ust=1704813932086000&source=images&cd=vfe&opi=89978449&ved=0CBIQjRxqFwoTCNCfl_uMzoMDFQAAAAAdAAAAABAD');
+            background-image: url('file:///pxfuel.jpg');
             background-size: cover;
         }
     </style>
