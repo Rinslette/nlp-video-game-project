@@ -23,7 +23,7 @@ st.set_page_config(
 background_image_style = """
     <style>
         body {
-            background-image: url('https://github.com/Rinslette/nlp-video-game-project/blob/main/pxfuel.jpg');
+            background-image: url('https://raw.githubusercontent.com/Rinslette/nlp-video-game-project/main/pxfuel.jpg');
             background-size: cover;
         }
     </style>
