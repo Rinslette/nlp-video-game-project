@@ -6,9 +6,13 @@ import nltk
 import re
 from nltk.corpus import stopwords
 from sklearn.model_selection import train_test_split
+from pathlib import Path
+
+# Set NLTK data path
+nltk.data.path.append(str(Path(__file__).parent.resolve()) + '/nltk_data')
 
 # Download NLTK data
-nltk.download('punkt', download_dir='./nltk_data')
+nltk.download('punkt')
 
 # Function to clean text
 def clean_text(text):
