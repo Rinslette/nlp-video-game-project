@@ -5,6 +5,9 @@ from nltk.corpus import stopwords
 import re
 import pickle
 
+# Download NLTK stopwords data
+nltk.download('stopwords')
+
 # Load the trained model and vectorizer using pickle
 with open('svmBOW.pkl', 'rb') as model_file:
     model = pickle.load(model_file)
