@@ -13,6 +13,7 @@ nltk.data.path.append(str(Path(__file__).parent.resolve()) + '/nltk_data')
 
 # Download NLTK data
 nltk.download('punkt')
+nltk.download('stopwords')
 
 # Function to clean text
 def clean_text(text):
@@ -30,7 +31,7 @@ model = SVC(kernel='linear')
 tfidf_vectorizer = TfidfVectorizer(analyzer='word', ngram_range=(1, 2))
 
 # Load the data
-df = pd.read_csv('./vgsales_Clean.csv')
+df = pd.read_csv('./Balance.csv')
 
 # Clean the 'Name' column
 df['Name'] = df['Name'].apply(clean_text)
