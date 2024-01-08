@@ -1,7 +1,7 @@
 import streamlit as st
 import pandas as pd
 from sklearn.feature_extraction.text import CountVectorizer
-from sklearn.externals import joblib  # Use joblib for loading the .pkl file
+import joblib  # Use joblib directly for loading the .pkl file
 import nltk
 import re
 from nltk.corpus import stopwords
@@ -50,7 +50,7 @@ st.title("Video Game Genre Prediction App")
 
 # Display information about the trained model
 st.header("Trained Model Details")
-st.text("Model loaded from your_model.pkl")
+st.text("Model loaded from svmTFIDF_model.pkl")
 
 # User input for game name
 user_input = st.text_input("Enter the name of a video game:")
