@@ -4,6 +4,7 @@ import nltk
 from nltk.corpus import stopwords
 import re
 import pickle
+import streamlit.components.v1 as components
 
 # Download NLTK stopwords data
 nltk.download('stopwords')
@@ -40,3 +41,11 @@ if user_input:
     st.write(f"Predicted Genre: {prediction}")
 else:
     st.info("Please enter the name of the game to predict its genre.")
+
+components.html(
+    """
+   <iframe width="350" height="430" allow="microphone;" src="https://console.dialogflow.com/api-client/demo/embedded/124565ef-4cda-4604-8fee-c4c577e7dc55"></iframe>
+    """,
+    height=440,
+    width=360,
+)
