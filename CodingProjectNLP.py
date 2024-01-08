@@ -30,7 +30,7 @@ def clean_text(text):
 model = joblib.load('./svmTFIDF_model.pkl')  # Replace 'your_model.pkl' with the actual file name
 
 # Load the data
-df = pd.read_csv('./vssales_Clean.csv')
+df = pd.read_csv('./vgsales_Clean.csv')
 
 # Clean the 'Name' column
 df['Name'] = df['Name'].apply(clean_text)
