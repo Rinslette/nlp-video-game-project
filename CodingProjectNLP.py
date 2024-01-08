@@ -1,30 +1,20 @@
+import streamlit as st
+import pandas as pd
 import nltk
 from nltk.corpus import stopwords
 import re
 import pickle
-import streamlit.components.v1 as components
+
 # Load the trained model and vectorizer using pickle
 with open('svmBOW.pkl', 'rb') as model_file:
+    saved_objects = pickle.load(model_file)
     model = pickle.load(model_file)
+
+# Unpack the tuple
+bow_vectorizer, model = saved_objects
 with open('BOWvectorizer.pkl', 'rb') as vectorizer_file:
     vectorizer = pickle.load(vectorizer_file)
-# Set custom background image from a local directory
-st.set_page_config(
-    page_title="Game Genre Prediction App",
-    page_icon="🎮",
-    layout="wide",
-    initial_sidebar_state="collapsed",
-)
-background_image_style = """
-    <style>
-        body {
-            background-image: url('https://raw.githubusercontent.com/Rinslette/nlp-video-game-project/main/pxfuel.jpg');
-            background-image: url('');
-            background-size: cover;
-        }
-    </style>
-"""
-st.markdown(background_image_style, unsafe_allow_html=True)
+
 # Streamlit app title and description
 st.title("Game Genre Prediction App")
 st.write("Enter the name of the game, and I'll predict its genre!")
@@ -44,22 +34,14 @@ if user_input:
         return text
     # Clean the user input
     cleaned_input = clean_text(user_input)
+
     # Transform the input using the loaded vectorizer
+    input_vectorized = bow_vectorizer.transform([cleaned_input])
     input_vectorized = vectorizer.transform([cleaned_input])
+
     # Make prediction using the loaded model
     prediction = model.predict(input_vectorized)[0]
-    # Display the predicted genre with a border shape
-    st.markdown(
-        f'<div style="border: 2px solid white; padding: 10px; border-radius: 10px; background-color: rgba(255, 255, 255, 0.5);">{prediction}</div>',
-        unsafe_allow_html=True,
-    )
+    # Display the predicted genre
+    st.write(f"Predicted Genre: {prediction}")
 else:
     st.info("Please enter the name of the game to predict its genre.")
-# Embed Landbot using HTML iframe
-components.html(
-    """
-   <iframe width="350" height="430" allow="microphone;" src="https://console.dialogflow.com/api-client/demo/embedded/124565ef-4cda-4604-8fee-c4c577e7dc55"></iframe>
-    """,
-    height=440,
-    width=360,
-)
