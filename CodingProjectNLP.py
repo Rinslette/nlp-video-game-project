@@ -52,5 +52,5 @@ components.html(
     """
    <iframe width="350" height="430" allow="microphone;" src="https://console.dialogflow.com/api-client/demo/embedded/124565ef-4cda-4604-8fee-c4c577e7dc55"></iframe>
     """,
-    height=600,
+    height=430,
 )
