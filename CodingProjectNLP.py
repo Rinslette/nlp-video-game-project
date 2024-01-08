@@ -22,7 +22,7 @@ model = SVC(kernel='linear')
 tfidf_vectorizer = TfidfVectorizer(analyzer='word', ngram_range=(1, 2))
 
 # Assuming df is your original dataframe
-df = pd.read_csv('Balance.csv')
+df = pd.read_csv('./vgsales_Clean.csv')
 
 # Clean the 'Name' column
 df['Name'] = df['Name'].apply(clean_text)
