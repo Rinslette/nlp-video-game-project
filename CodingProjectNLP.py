@@ -1,7 +1,7 @@
 import streamlit as st
 import pandas as pd
 from sklearn.feature_extraction.text import CountVectorizer
-from sklearn.svm import SVC
+from sklearn.externals import joblib  # Use joblib for loading the .pkl file
 import nltk
 import re
 from nltk.corpus import stopwords
@@ -26,9 +26,8 @@ def clean_text(text):
     text = ' '.join(tokens).strip()
     return text
 
-# Load the pre-trained model and vectorizer
-model = SVC(kernel='linear')
-bow_vectorizer = CountVectorizer(analyzer='word', ngram_range=(1, 2))
+# Load the pre-trained model from .pkl file
+model = joblib.load('./svmTFIDF_model.pkl')  # Replace 'your_model.pkl' with the actual file name
 
 # Load the data
 df = pd.read_csv('./vgsales_Clean.csv')
@@ -42,14 +41,16 @@ x = df['Name']
 xtrain, xval, ytrain, yval = train_test_split(x, y, test_size=0.2)
 
 # Create the Bag of Words features
+bow_vectorizer = CountVectorizer(analyzer='word', ngram_range=(1, 2))
 xtrain_bow = bow_vectorizer.fit_transform(xtrain)
 xval_bow = bow_vectorizer.transform(xval)
 
-# Fit the model on the training data
-model.fit(xtrain_bow, ytrain)
-
 # Streamlit app
 st.title("Video Game Genre Prediction App")
+
+# Display information about the trained model
+st.header("Trained Model Details")
+st.text("Model loaded from your_model.pkl")
 
 # User input for game name
 user_input = st.text_input("Enter the name of a video game:")
@@ -61,7 +62,7 @@ if user_input:
     # Vectorize the cleaned input
     input_vectorized = bow_vectorizer.transform([cleaned_input])
 
-    # Make prediction using the trained model
+    # Make prediction using the loaded model
     prediction = model.predict(input_vectorized)[0]
 
     st.success(f"The predicted genre for '{user_input}' is: {prediction}")
