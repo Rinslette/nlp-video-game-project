@@ -1,5 +1,4 @@
 import streamlit as st
-import numpy as np
 import pandas as pd
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.svm import SVC
@@ -7,7 +6,10 @@ import nltk
 import re
 from nltk.corpus import stopwords
 from sklearn.model_selection import train_test_split
-nltk.download('punkt')
+
+# Download NLTK data
+nltk.download('punkt', download_dir='./nltk_data')
+
 # Function to clean text
 def clean_text(text):
     text = text.lower()
@@ -23,7 +25,7 @@ def clean_text(text):
 model = SVC(kernel='linear')
 tfidf_vectorizer = TfidfVectorizer(analyzer='word', ngram_range=(1, 2))
 
-# Assuming df is your original dataframe
+# Load the data
 df = pd.read_csv('./vgsales_Clean.csv')
 
 # Clean the 'Name' column
