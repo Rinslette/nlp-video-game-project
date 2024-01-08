@@ -1,6 +1,6 @@
 import streamlit as st
 import pandas as pd
-from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.svm import SVC
 import nltk
 import re
@@ -28,10 +28,10 @@ def clean_text(text):
 
 # Load the pre-trained model and vectorizer
 model = SVC(kernel='linear')
-tfidf_vectorizer = TfidfVectorizer(analyzer='word', ngram_range=(1, 2))
+bow_vectorizer = CountVectorizer(analyzer='word', ngram_range=(1, 2))
 
 # Load the data
-df = pd.read_csv('./vgsales_Clean.csv')
+df = pd.read_csv('./Balance.csv')
 
 # Clean the 'Name' column
 df['Name'] = df['Name'].apply(clean_text)
@@ -41,12 +41,12 @@ y = df['Genre']
 x = df['Name']
 xtrain, xval, ytrain, yval = train_test_split(x, y, test_size=0.2)
 
-# Create the TF-IDF features
-xtrain_tfidf = tfidf_vectorizer.fit_transform(xtrain)
-xval_tfidf = tfidf_vectorizer.transform(xval)
+# Create the Bag of Words features
+xtrain_bow = bow_vectorizer.fit_transform(xtrain)
+xval_bow = bow_vectorizer.transform(xval)
 
 # Fit the model on the training data
-model.fit(xtrain_tfidf, ytrain)
+model.fit(xtrain_bow, ytrain)
 
 # Streamlit app
 st.title("Video Game Genre Prediction App")
@@ -59,7 +59,7 @@ if user_input:
     cleaned_input = clean_text(user_input)
 
     # Vectorize the cleaned input
-    input_vectorized = tfidf_vectorizer.transform([cleaned_input])
+    input_vectorized = bow_vectorizer.transform([cleaned_input])
 
     # Make prediction using the trained model
     prediction = model.predict(input_vectorized)[0]
