@@ -51,10 +51,20 @@ else:
     st.info("Please enter the name of the game to predict its genre.")
 
 # Add a button to toggle the chatbot dropdown
-if st.button("Toggle Chatbot"):
-    st.markdown(
+toggle_button = st.button("Toggle Chatbot")
+
+# Create a placeholder for the chatbot dropdown
+chatbot_placeholder = st.empty()
+
+# Check if the button is clicked
+if toggle_button:
+    # Fill the placeholder with the chatbot content
+    chatbot_placeholder.markdown(
         """
         <iframe width="350" height="430" allow="microphone;" src="https://console.dialogflow.com/api-client/demo/embedded/124565ef-4cda-4604-8fee-c4c577e7dc55"></iframe>
         """,
         unsafe_allow_html=True,
     )
+else:
+    # Clear the placeholder if the button is not clicked
+    chatbot_placeholder.empty()
