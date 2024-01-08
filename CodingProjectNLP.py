@@ -6,6 +6,12 @@ import re
 import pickle
 import streamlit.components.v1 as components
 
+# Download NLTK data if not already downloaded
+try:
+    nltk.data.find('tokenizers/punkt')
+except LookupError:
+    nltk.download('punkt')
+
 # Load the trained model and vectorizer using pickle
 with open('svmBOW.pkl', 'rb') as model_file:
     model = pickle.load(model_file)
@@ -23,7 +29,7 @@ st.set_page_config(
 background_image_style = """
     <style>
         body {
-            background-image: url('');
+            background-image: url('https://github.com/Rinslette/nlp-video-game-project/raw/main/pxfuel.jpg');
             background-size: cover;
         }
     </style>
