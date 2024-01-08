@@ -51,7 +51,7 @@ else:
     st.info("Please enter the name of the game to predict its genre.")
 
 # Add a button to toggle the chatbot dropdown
-with st.beta_expander("Chatbot"):
+with st.expander("Chatbot"):
     st.markdown(
         """
         <iframe width="350" height="430" allow="microphone;" src="https://console.dialogflow.com/api-client/demo/embedded/124565ef-4cda-4604-8fee-c4c577e7dc55"></iframe>
