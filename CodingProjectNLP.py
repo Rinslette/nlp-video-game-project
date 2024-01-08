@@ -50,45 +50,14 @@ if user_input:
 else:
     st.info("Please enter the name of the game to predict its genre.")
 
-st.markdown(
-    """
-    <style>
-        .chatbot-button {
-            position: fixed;
-            bottom: 10px;
-            left: 10px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 50%;
-            padding: 15px;
-            font-size: 16px;
-            cursor: pointer;
-        }
+chatbot_button = st.button("Chatbot")
 
-        .chatbot-container {
-            position: fixed;
-            bottom: 70px;
-            left: 10px;
-            display: none;
-            width: 350px;
-            height: 430px;
-            border: none;
-        }
-    </style>
-    
-    <button class="chatbot-button" onclick="toggleChatbot()">Chat</button>
-
-    <div class="chatbot-container" id="chatbot-container">
+# Embed Landbot using HTML iframe
+if chatbot_button:
+    components.html(
+        """
         <iframe width="350" height="430" allow="microphone;" src="https://console.dialogflow.com/api-client/demo/embedded/124565ef-4cda-4604-8fee-c4c577e7dc55"></iframe>
-    </div>
-
-    <script>
-        function toggleChatbot() {
-            var chatbotContainer = document.getElementById('chatbot-container');
-            chatbotContainer.style.display = (chatbotContainer.style.display === 'none') ? 'block' : 'none';
-        }
-    </script>
-    """,
-    unsafe_allow_html=True,
-)
+        """,
+        height=440,
+        width=360,
+    )
