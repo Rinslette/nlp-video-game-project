@@ -3,10 +3,12 @@ import pandas as pd
 import nltk
 from nltk.corpus import stopwords
 import re
-import joblib
+import pickle
 
-# Load the trained model
-model = joblib.load('./svmBOW.pkl')
+# Load the trained model and vectorizer using pickle
+with open('svmBOW.pkl', 'rb') as model_file:
+    bow_vectorizer, model = pickle.load(model_file)
+
 
 # Streamlit app title and description
 st.title("Game Genre Prediction App")
@@ -31,8 +33,11 @@ if user_input:
     # Clean the user input
     cleaned_input = clean_text(user_input)
 
+    # Transform the input using the loaded vectorizer
+    input_vectorized = vectorizer.transform([cleaned_input])
+
     # Make prediction using the loaded model
-    prediction = model.predict([cleaned_input])[0]
+    prediction = model.predict(input_vectorized)[0]
 
     # Display the predicted genre
     st.write(f"Predicted Genre: {prediction}")
