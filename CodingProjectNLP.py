@@ -1,80 +1,94 @@
-import streamlit as st
+#!/usr/bin/env python
+# coding: utf-8
+
+import numpy as np
 import pandas as pd
+import matplotlib.pyplot as plt
 from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
-import joblib  # Use joblib directly for loading the .pkl file
-import nltk
-import re
-from nltk.corpus import stopwords
+from sklearn.naive_bayes import MultinomialNB
+from sklearn.linear_model import LogisticRegression
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.svm import SVC
+from sklearn.neighbors import KNeighborsClassifier
 from sklearn.model_selection import train_test_split
-from pathlib import Path
-
-# Set NLTK data path
-nltk.data.path.append(str(Path(__file__).parent.resolve()) + '/nltk_data')
-
-# Download NLTK data
-nltk.download('punkt')
-nltk.download('stopwords')
-
-# Function to clean text
-def clean_text(text):
-    text = text.lower()
-    tokens = nltk.word_tokenize(text)
-    tokens = [t for t in tokens if t.isalpha()]
-    tokens = [t for t in tokens if t not in stopwords.words('english')]
-    roman_re = r'\bM{0,4}(CM|CD|D?C{0,3})(XC|XL|L?X{0,3})(IX|IV|V?I{0,3})\b'
-    tokens = [t for t in tokens if not re.match(roman_re, t, flags=re.IGNORECASE).group()]
-    text = ' '.join(tokens).strip()
-    return text
-
-# Load the pre-trained model from .pkl file
-model = joblib.load('./svmTFIDF_model.pkl')  # Replace 'your_model.pkl' with the actual file name
+from sklearn import metrics
+import joblib
 
 # Load the data
-df = pd.read_csv('./vgsales_Clean.csv')
+df = pd.read_csv('./vgsales_Clean.csv')  # Adjust the path to your CSV file
 
-# Clean the 'Name' column
-df['Name'] = df['Name'].apply(clean_text)
-
-# Split the data into training and validation sets
+# Assuming 'Name' is the feature you want to classify and 'Genre' is the target label
 y = df['Genre']
-x = df['Name']
-xtrain, xval, ytrain, yval = train_test_split(x, y, test_size=0.2)
+X = df['Name']
 
-# Create the Bag of Words features
+# Split the dataset
+X_train, X_val, y_train, y_val = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# BOW Vectorizer
 bow_vectorizer = CountVectorizer(analyzer='word', ngram_range=(1, 2))
-xtrain_bow = bow_vectorizer.fit_transform(xtrain)
-xval_bow = bow_vectorizer.transform(xval)
+X_train_bow = bow_vectorizer.fit_transform(X_train)
+X_val_bow = bow_vectorizer.transform(X_val)
 
-# Create the TF-IDF features
+# TF-IDF Vectorizer
 tfidf_vectorizer = TfidfVectorizer(analyzer='word', ngram_range=(1, 2))
-xtrain_tfidf = tfidf_vectorizer.fit_transform(xtrain)
-xval_tfidf = tfidf_vectorizer.transform(xval)
+X_train_tfidf = tfidf_vectorizer.fit_transform(X_train)
+X_val_tfidf = tfidf_vectorizer.transform(X_val)
 
-# Streamlit app
-st.title("Video Game Genre Prediction App")
+# Models
+mnb = MultinomialNB()
+lr = LogisticRegression(max_iter=1000)
+rfc = RandomForestClassifier(random_state=0)
+svm = SVC(kernel='linear')
+knn = KNeighborsClassifier(n_neighbors=3)
 
-# Display information about the trained model
-st.header("Trained Model Details")
-st.text("Model loaded from svmTFIDF_model.pkl")
+# Fit models on BOW features
+mnb.fit(X_train_bow, y_train)
+lr.fit(X_train_bow, y_train)
+rfc.fit(X_train_bow, y_train)
+svm.fit(X_train_bow, y_train)
+knn.fit(X_train_bow, y_train)
 
-# User input for game name
-user_input = st.text_input("Enter the name of a video game:")
+# Evaluate performance on BOW features
+mnb_acc_bow = metrics.accuracy_score(y_val, mnb.predict(X_val_bow))
+lr_acc_bow = metrics.accuracy_score(y_val, lr.predict(X_val_bow))
+rfc_acc_bow = metrics.accuracy_score(y_val, rfc.predict(X_val_bow))
+svm_acc_bow = metrics.accuracy_score(y_val, svm.predict(X_val_bow))
+knn_acc_bow = metrics.accuracy_score(y_val, knn.predict(X_val_bow))
 
-if user_input:
-    # Clean the user input
-    cleaned_input = clean_text(user_input)
+# Fit models on TF-IDF features
+mnb.fit(X_train_tfidf, y_train)
+lr.fit(X_train_tfidf, y_train)
+rfc.fit(X_train_tfidf, y_train)
+svm.fit(X_train_tfidf, y_train)
+knn.fit(X_train_tfidf, y_train)
 
-    # Vectorize the cleaned input for BOW
-    input_vectorized_bow = bow_vectorizer.transform([cleaned_input])
+# Evaluate performance on TF-IDF features
+mnb_acc_tfidf = metrics.accuracy_score(y_val, mnb.predict(X_val_tfidf))
+lr_acc_tfidf = metrics.accuracy_score(y_val, lr.predict(X_val_tfidf))
+rfc_acc_tfidf = metrics.accuracy_score(y_val, rfc.predict(X_val_tfidf))
+svm_acc_tfidf = metrics.accuracy_score(y_val, svm.predict(X_val_tfidf))
+knn_acc_tfidf = metrics.accuracy_score(y_val, knn.predict(X_val_tfidf))
 
-    # Vectorize the cleaned input for TF-IDF
-    input_vectorized_tfidf = tfidf_vectorizer.transform([cleaned_input])
+# Print accuracy scores
+print("BOW Accuracy Scores:")
+print(f"Multinomial Naive Bayes: {mnb_acc_bow}")
+print(f"Logistic Regression: {lr_acc_bow}")
+print(f"Random Forest Classifier: {rfc_acc_bow}")
+print(f"Support Vector Machine: {svm_acc_bow}")
+print(f"K Nearest Neighbourhood: {knn_acc_bow}")
 
-    # Make prediction using the loaded model for BOW
-    prediction_bow = model.predict(input_vectorized_bow)[0]
+print("\nTF-IDF Accuracy Scores:")
+print(f"Multinomial Naive Bayes: {mnb_acc_tfidf}")
+print(f"Logistic Regression: {lr_acc_tfidf}")
+print(f"Random Forest Classifier: {rfc_acc_tfidf}")
+print(f"Support Vector Machine: {svm_acc_tfidf}")
+print(f"K Nearest Neighbourhood: {knn_acc_tfidf}")
 
-    # Make prediction using the loaded model for TF-IDF
-    prediction_tfidf = model.predict(input_vectorized_tfidf)[0]
-
-    st.success(f"The predicted genre for '{user_input}' (using BOW) is: {prediction_bow}")
-    st.success(f"The predicted genre for '{user_input}' (using TF-IDF) is: {prediction_tfidf}")
+# Save models and vectorizers
+joblib.dump(mnb, 'mnb_model.pkl')
+joblib.dump(lr, 'lr_model.pkl')
+joblib.dump(rfc, 'rfc_model.pkl')
+joblib.dump(svm, 'svm_model.pkl')
+joblib.dump(knn, 'knn_model.pkl')
+joblib.dump(bow_vectorizer, 'bow_vectorizer.pkl')
+joblib.dump(tfidf_vectorizer, 'tfidf_vectorizer.pkl')
