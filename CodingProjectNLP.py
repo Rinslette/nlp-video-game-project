@@ -9,6 +9,14 @@ import streamlit.components.v1 as components
 # Download NLTK stopwords data
 nltk.download('stopwords')
 
+# Set custom background image from a URL
+st.set_page_config(
+    page_title="Game Genre Prediction App",
+    page_icon="🎮",
+    layout="wide",
+    initial_sidebar_state="collapsed",
+)
+
 # Load the trained model and vectorizer using pickle
 with open('svmBOW.pkl', 'rb') as model_file:
     model = pickle.load(model_file)
