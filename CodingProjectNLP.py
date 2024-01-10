@@ -25,7 +25,7 @@ st.markdown("""
     </style>""", unsafe_allow_html=True)
 
 # Load the trained model and vectorizer using pickle
-with st.container():
+with st.container(style="padding: 20px; max-width: 800px; background-color: rgba(255, 255, 255, 0.8); border-radius: 10px;"):
     with open('svmBOW.pkl', 'rb') as model_file:
         model = pickle.load(model_file)
     with open('BOWvectorizer.pkl', 'rb') as vectorizer_file:
