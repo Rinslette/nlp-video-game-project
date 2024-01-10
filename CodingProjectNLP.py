@@ -22,6 +22,11 @@ st.markdown("""
         background: url("https://r4.wallpaperflare.com/wallpaper/96/92/869/game-games-2014-best-wallpaper-a94028fd717a4d2bd6c7181f7021068d.jpg");
         background-size: cover;
         }
+        .text-container {
+        background-color: rgba(255, 255, 255, 0.7);
+        padding: 20px;
+        border-radius: 10px;
+        }
     </style>""", unsafe_allow_html=True)
 
 # Load the trained model and vectorizer using pickle
