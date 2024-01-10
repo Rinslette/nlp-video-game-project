@@ -13,7 +13,6 @@ nltk.download('stopwords')
 st.set_page_config(
     page_title="Game Genre Prediction App",
     page_icon="🎮",
-    layout="narrow",
     initial_sidebar_state="collapsed",
 )
 
