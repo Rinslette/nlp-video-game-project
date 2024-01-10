@@ -59,4 +59,6 @@ components.html(
       language-code="en"
     ></df-messenger>
     """,
+    height=300,
+    width=300,
 )
