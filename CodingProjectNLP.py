@@ -24,6 +24,8 @@ st.markdown("""
         }
     </style>""", unsafe_allow_html=True)
 
+# ...
+
 # Load the trained model and vectorizer using pickle
 with st.markdown(
     """
@@ -39,6 +41,7 @@ with st.markdown(
     unsafe_allow_html=True
 ):
     st.markdown('<div class="custom-container">', unsafe_allow_html=True)
+    
     with open('svmBOW.pkl', 'rb') as model_file:
         model = pickle.load(model_file)
     with open('BOWvectorizer.pkl', 'rb') as vectorizer_file:
@@ -60,7 +63,8 @@ with st.markdown(
     else:
         st.info("Please enter the name of the game to predict its genre.")
 
-    st.markdown("</div>", unsafe_allow_html=True)
+    st.markdown('</div>', unsafe_allow_html=True)
+
     
     components.html(
         """
