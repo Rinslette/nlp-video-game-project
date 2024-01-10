@@ -52,7 +52,7 @@ else:
 
 components.html(
     """
-    
+    <script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1"></script>
     <df-messenger
       intent="WELCOME"
       chat-title="AwleBot"
@@ -60,5 +60,4 @@ components.html(
       language-code="en"
     ></df-messenger>
     """,
-    height=600,
 )
