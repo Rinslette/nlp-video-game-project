@@ -16,6 +16,14 @@ st.set_page_config(
     initial_sidebar_state="collapsed",
 )
 
+st.markdown("""
+    <style>
+        .stApp {
+        background: url("https://e0.pxfuel.com/wallpapers/529/890/desktop-wallpaper-popular-video-games-collage-tip-game-collection.jpg");
+        background-size: cover;
+        }
+    </style>""", unsafe_allow_html=True)
+
 # Load the trained model and vectorizer using pickle
 with open('svmBOW.pkl', 'rb') as model_file:
     model = pickle.load(model_file)
