@@ -26,11 +26,6 @@ st.markdown("""
 
 # Load the trained model and vectorizer using pickle
 with st.container():
-primaryColor="#F63366"
-backgroundColor="#FFFFFF"
-secondaryBackgroundColor="#F0F2F6"
-textColor="#262730"
-font="sans serif"
     with open('svmBOW.pkl', 'rb') as model_file:
         model = pickle.load(model_file)
     with open('BOWvectorizer.pkl', 'rb') as vectorizer_file:
