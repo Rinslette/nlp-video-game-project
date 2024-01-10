@@ -26,7 +26,6 @@ st.markdown("""
 
 # Load the trained model and vectorizer using pickle
 with st.container():
-[theme]
 primaryColor="#F63366"
 backgroundColor="#FFFFFF"
 secondaryBackgroundColor="#F0F2F6"
