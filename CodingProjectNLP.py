@@ -19,7 +19,7 @@ st.set_page_config(
 st.markdown("""
     <style>
         .stApp {
-        background: url("https://e0.pxfuel.com/wallpapers/529/890/desktop-wallpaper-popular-video-games-collage-tip-game-collection.jpg");
+        background: url("https://r4.wallpaperflare.com/wallpaper/96/92/869/game-games-2014-best-wallpaper-a94028fd717a4d2bd6c7181f7021068d.jpg");
         background-size: cover;
         }
     </style>""", unsafe_allow_html=True)
