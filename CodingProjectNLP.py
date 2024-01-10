@@ -25,36 +25,42 @@ st.markdown("""
     </style>""", unsafe_allow_html=True)
 
 # Load the trained model and vectorizer using pickle
-with st.markdown("""
-    <div style="padding: 20px; max-width: 800px; background-color: rgba(255, 255, 255, 0.8); border-radius: 10px;">
-        <h1>Game Genre Prediction App</h1>
-        <p>Enter the name of the game, and I'll predict its genre!</p>
-        <label for="game_name">Enter the name of the game:</label>
-        <input type="text" id="game_name" name="game_name">
-        <button onclick="predictGenre()">Predict Genre</button>
-        <p id="predicted_genre"></p>
-    </div>
-"""):
+with st.markdown(
+    """
+    <style>
+        .custom-container {
+            padding: 20px;
+            max-width: 800px;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 10px;
+        }
+    </style>
+    """,
+    unsafe_allow_html=True
+):
+    st.markdown('<div class="custom-container">', unsafe_allow_html=True)
     with open('svmBOW.pkl', 'rb') as model_file:
         model = pickle.load(model_file)
     with open('BOWvectorizer.pkl', 'rb') as vectorizer_file:
         vectorizer = pickle.load(vectorizer_file)
 
-    st.markdown("""
-        <script>
-            function predictGenre() {
-                var userInput = document.getElementById("game_name").value;
-                if (userInput.trim() !== "") {
-                    // Clean the user input
-                    // ... (rest of the cleaning and prediction logic)
-                    // Display the predicted genre
-                    document.getElementById("predicted_genre").innerText = "Predicted Genre: " + prediction;
-                } else {
-                    alert("Please enter the name of the game to predict its genre.");
-                }
-            }
-        </script>
-    """)
+    st.title("Game Genre Prediction App")
+    st.write("Enter the name of the game, and I'll predict its genre!")
+    user_input = st.text_input("Enter the name of the game:")
+
+    if user_input:
+        def clean_text(text):
+            # ... (your cleaning logic)
+            return text
+
+        cleaned_input = clean_text(user_input)
+        input_vectorized = vectorizer.transform([cleaned_input])
+        prediction = model.predict(input_vectorized)[0]
+        st.write(f"Predicted Genre: {prediction}")
+    else:
+        st.info("Please enter the name of the game to predict its genre.")
+
+    st.markdown("</div>", unsafe_allow_html=True)
     
     components.html(
         """
