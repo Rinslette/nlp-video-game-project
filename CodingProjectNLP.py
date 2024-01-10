@@ -22,11 +22,6 @@ st.markdown("""
         background: url("https://r4.wallpaperflare.com/wallpaper/96/92/869/game-games-2014-best-wallpaper-a94028fd717a4d2bd6c7181f7021068d.jpg");
         background-size: cover;
         }
-        .text-container {
-        background-color: rgba(255, 255, 255, 0.7);
-        padding: 20px;
-        border-radius: 10px;
-        }
     </style>""", unsafe_allow_html=True)
 
 # Load the trained model and vectorizer using pickle
@@ -34,10 +29,8 @@ with open('svmBOW.pkl', 'rb') as model_file:
     model = pickle.load(model_file)
 with open('BOWvectorizer.pkl', 'rb') as vectorizer_file:
     vectorizer = pickle.load(vectorizer_file)
-
 # Streamlit app title and description
 st.title("Game Genre Prediction App")
-st.markdown('<div class="text-container">', unsafe_allow_html=True)
 st.write("Enter the name of the game, and I'll predict its genre!")
 # User input for the game name
 user_input = st.text_input("Enter the name of the game:")
@@ -45,9 +38,14 @@ user_input = st.text_input("Enter the name of the game:")
 if user_input:
     # Clean the input text using the same clean_text function as in the original code
     def clean_text(text):
-        # ... (Your existing clean_text function)
+        text = text.lower()
+        tokens = nltk.word_tokenize(text)
+        tokens = [t for t in tokens if t.isalpha()]
+        tokens = [t for t in tokens if t not in stopwords.words('english')]
+        roman_re = r'\bM{0,4}(CM|CD|D?C{0,3})(XC|XL|L?X{0,3})(IX|IV|V?I{0,3})\b'
+        tokens = [t for t in tokens if not re.match(roman_re, t, flags=re.IGNORECASE).group()]
+        text = ' '.join(tokens).strip()
         return text
-
     # Clean the user input
     cleaned_input = clean_text(user_input)
     # Transform the input using the loaded vectorizer
@@ -58,7 +56,6 @@ if user_input:
     st.write(f"Predicted Genre: {prediction}")
 else:
     st.info("Please enter the name of the game to predict its genre.")
-st.markdown('</div>', unsafe_allow_html=True)
 
 components.html(
     """
