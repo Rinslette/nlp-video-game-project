@@ -50,11 +50,15 @@ if user_input:
 else:
     st.info("Please enter the name of the game to predict its genre.")
 
-# Add a button to toggle the chatbot dropdown
-with st.expander("Chatbot"):
-    st.markdown(
-        """
-        <iframe width="350" height="430" allow="microphone;" src="https://console.dialogflow.com/api-client/demo/embedded/124565ef-4cda-4604-8fee-c4c577e7dc55"></iframe>
-        """,
-        unsafe_allow_html=True,
-    )
+components.html(
+    """
+    <script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1"></script>
+    <df-messenger
+      intent="WELCOME"
+      chat-title="AwleBot"
+      agent-id="124565ef-4cda-4604-8fee-c4c577e7dc55"
+      language-code="en"
+    ></df-messenger>
+    """,
+    height=600,
+)
