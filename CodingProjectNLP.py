@@ -25,38 +25,36 @@ st.markdown("""
     </style>""", unsafe_allow_html=True)
 
 # Load the trained model and vectorizer using pickle
-with st.container(style="padding: 20px; max-width: 800px; background-color: rgba(255, 255, 255, 0.8); border-radius: 10px;"):
+with st.markdown("""
+    <div style="padding: 20px; max-width: 800px; background-color: rgba(255, 255, 255, 0.8); border-radius: 10px;">
+        <h1>Game Genre Prediction App</h1>
+        <p>Enter the name of the game, and I'll predict its genre!</p>
+        <label for="game_name">Enter the name of the game:</label>
+        <input type="text" id="game_name" name="game_name">
+        <button onclick="predictGenre()">Predict Genre</button>
+        <p id="predicted_genre"></p>
+    </div>
+"""):
     with open('svmBOW.pkl', 'rb') as model_file:
         model = pickle.load(model_file)
     with open('BOWvectorizer.pkl', 'rb') as vectorizer_file:
         vectorizer = pickle.load(vectorizer_file)
-    # Streamlit app title and description
-    st.title("Game Genre Prediction App")
-    st.write("Enter the name of the game, and I'll predict its genre!")
-    # User input for the game name
-    user_input = st.text_input("Enter the name of the game:")
-    # Check if the user has entered a game name
-    if user_input:
-        # Clean the input text using the same clean_text function as in the original code
-        def clean_text(text):
-            text = text.lower()
-            tokens = nltk.word_tokenize(text)
-            tokens = [t for t in tokens if t.isalpha()]
-            tokens = [t for t in tokens if t not in stopwords.words('english')]
-            roman_re = r'\bM{0,4}(CM|CD|D?C{0,3})(XC|XL|L?X{0,3})(IX|IV|V?I{0,3})\b'
-            tokens = [t for t in tokens if not re.match(roman_re, t, flags=re.IGNORECASE).group()]
-            text = ' '.join(tokens).strip()
-            return text
-        # Clean the user input
-        cleaned_input = clean_text(user_input)
-        # Transform the input using the loaded vectorizer
-        input_vectorized = vectorizer.transform([cleaned_input])
-        # Make prediction using the loaded model
-        prediction = model.predict(input_vectorized)[0]
-        # Display the predicted genre
-        st.write(f"Predicted Genre: {prediction}")
-    else:
-        st.info("Please enter the name of the game to predict its genre.")
+
+    st.markdown("""
+        <script>
+            function predictGenre() {
+                var userInput = document.getElementById("game_name").value;
+                if (userInput.trim() !== "") {
+                    // Clean the user input
+                    // ... (rest of the cleaning and prediction logic)
+                    // Display the predicted genre
+                    document.getElementById("predicted_genre").innerText = "Predicted Genre: " + prediction;
+                } else {
+                    alert("Please enter the name of the game to predict its genre.");
+                }
+            }
+        </script>
+    """)
     
     components.html(
         """
