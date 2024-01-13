@@ -5,14 +5,18 @@ from nltk.corpus import stopwords
 import re
 import pickle
 import streamlit.components.v1 as components
-# Download NLTK stopwords data
+
+# Download NLTK stopwords and punkt data
 nltk.download('stopwords')
+nltk.download('punkt')
+
 # Set custom background image from a URL
 st.set_page_config(
     page_title="Game Genre Prediction App",
     page_icon="🎮",
     initial_sidebar_state="collapsed",
 )
+
 page_bg_img = f"""
 <style>
 [data-testid="stAppViewContainer"] > .main {{
@@ -24,6 +28,7 @@ background-attachment: local;
 </style>
 """
 st.markdown(page_bg_img, unsafe_allow_html=True)
+
 # Load the trained model and vectorizer using pickle
 with st.container():
     with open('svmBOW.pkl', 'rb') as model_file:
@@ -57,7 +62,7 @@ with st.container():
         st.write(f"Predicted Genre: {prediction}")
     else:
         st.info("Please enter the name of the game to predict its genre.")
-    
+
     components.html(
         """
         <script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1"></script>
@@ -70,4 +75,4 @@ with st.container():
         """,
         height=300,
         width=300,
-)
+    )
