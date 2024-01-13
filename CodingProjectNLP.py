@@ -78,7 +78,7 @@ st.markdown('<div class="custom-container">
             # Display the predicted genre
             st.write(f"Predicted Genre: {prediction}")
         else:
-            st.info("Please enter the name of the game to predict its genre.")
+            st.info("Please enter the name of the game to predict its genre.")</div>', unsafe_allow_html=True)
     
         components.html(
             """
@@ -94,4 +94,3 @@ st.markdown('<div class="custom-container">
             width=300,
         ) 
         
-    </div>', unsafe_allow_html=True)
