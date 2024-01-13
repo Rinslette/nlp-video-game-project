@@ -76,15 +76,15 @@ with st.container():
     else:
         st.info("Please enter the name of the game to predict its genre.")
 
-    st.markdown("""
-    <div class="custom-container">
-        <h3>Your Result:</h3>
-        <p>Cleaned Input: {}</p>
-        <p>Predicted Genre: {}</p>
-    </div>
-    """.format(cleaned_input, prediction), unsafe_allow_html=True)
+        st.markdown("""
+        <div class="custom-container">
+            <h3>Your Result:</h3>
+            <p>Cleaned Input: {}</p>
+            <p>Predicted Genre: {}</p>
+        </div>
+        """.format(cleaned_input, prediction), unsafe_allow_html=True)
     else:
-    st.info("Please enter the name of the game to predict its genre.")
+        st.info("Please enter the name of the game to predict its genre.")
     
     components.html(
         """
