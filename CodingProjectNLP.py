@@ -25,6 +25,9 @@ background-position: top left;
 background-repeat: no-repeat;
 background-attachment: local;
 }}
+</style>
+"""
+st.markdown(page_bg_img, unsafe_allow_html=True)
 
 # Load the trained model and vectorizer using pickle
 with st.container():
