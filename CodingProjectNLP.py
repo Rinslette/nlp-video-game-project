@@ -67,7 +67,6 @@ components.html(
     """
     <script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1"></script>
     <df-messenger
-      intent="WELCOME"
       chat-title="AwleBot"
       agent-id="124565ef-4cda-4604-8fee-c4c577e7dc55"
       language-code="en"
