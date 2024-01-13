@@ -77,7 +77,7 @@ with st.container(border=12):
         width=300,
     )
 
-css_body_container = """
+css_container = """
 <style>
 body {
     background-color: white;
@@ -86,4 +86,4 @@ body {
 }
 </style>
 """
-st.markdown(css_body_container, unsafe_allow_html=True)
+st.markdown(css_container, unsafe_allow_html=True)
