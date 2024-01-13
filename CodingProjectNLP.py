@@ -19,15 +19,25 @@ st.set_page_config(
 page_bg_img = f"""
 <style>
 [data-testid="stAppViewContainer"] > .main {{
-background-image: url("https://r4.wallpaperflare.com/wallpaper/96/92/869/game-games-2014-best-wallpaper-a94028fd717a4d2bd6c7181f7021068d.jpg");
-background-size: cover;
-background-repeat: no-repeat;
-background-attachment: local;
+    background-image: url("https://r4.wallpaperflare.com/wallpaper/96/92/869/game-games-2014-best-wallpaper-a94028fd717a4d2bd6c7181f7021068d.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: local;
 }}
 </style>
 """
 st.markdown(page_bg_img, unsafe_allow_html=True)
 
+css_container = """
+<style>
+body {
+    background-color: white;
+    padding: 0.5em;
+    border-radius: 1em;
+}
+</style>
+"""
+st.markdown(css_container, unsafe_allow_html=True)
 
 with st.container(border=12):
     # Load the trained model and vectorizer using pickle
@@ -76,14 +86,3 @@ with st.container(border=12):
         height=300,
         width=300,
     )
-
-css_container = """
-<style>
-.stApp {
-    background-color: white;
-    padding: 0.5em;
-    border-radius: 1em;
-}
-</style>
-"""
-st.markdown(css_container, unsafe_allow_html=True)
