@@ -73,8 +73,6 @@ with st.container():
         prediction = model.predict(input_vectorized)[0]
         # Display the predicted genre
         st.write(f"Predicted Genre: {prediction}")
-    else:
-        st.info("Please enter the name of the game to predict its genre.")
 
         st.markdown("""
         <div class="custom-container">
@@ -85,6 +83,8 @@ with st.container():
         """.format(cleaned_input, prediction), unsafe_allow_html=True)
     else:
         st.info("Please enter the name of the game to predict its genre.")
+
+        
     
     components.html(
         """
