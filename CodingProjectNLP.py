@@ -20,7 +20,7 @@ st.set_page_config(
 page_bg_img = f"""
 <style>
 [data-testid="stAppViewContainer"] > .main {{
-background-image: url("https://cdn.discordapp.com/attachments/718844530610143263/1195680275884154920/pxfuel_filtered.jpg?ex=65b4df08&is=65a26a08&hm=ff7932dc7735a0423ce3e718db547aa2acd7f4dc33b0a3f457c448e3f2c82cec&");
+background-image: url("https://cdn.discordapp.com/attachments/718844530610143263/1195680870686797875/wallpaperflare.com_wallpaper.jpg?ex=65b4df96&is=65a26a96&hm=8bfce7cc203c54c7b074780f675d6a0e6431c80d161c2717eb50ba2cdec3a1af&");
 background-size: cover;
 background-repeat: no-repeat;
 background-position: center; 
