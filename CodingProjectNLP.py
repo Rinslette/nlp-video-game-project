@@ -83,7 +83,7 @@ with st.container():
         <p>Predicted Genre: {}</p>
     </div>
     """.format(cleaned_input, prediction), unsafe_allow_html=True)
-else:
+    else:
     st.info("Please enter the name of the game to predict its genre.")
     
     components.html(
