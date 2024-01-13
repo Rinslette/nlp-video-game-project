@@ -28,13 +28,6 @@ page_bg_img = f"""
 """
 st.markdown(page_bg_img, unsafe_allow_html=True)
 
-# Custom CSS container
-custom_css_container = """
-<div style="background-color: white; padding: 0.5em; border-radius: 1em;">
-    <div>
-"""
-
-# Your existing Streamlit code goes here
 
 with st.container(border=12):
     # Load the trained model and vectorizer using pickle
@@ -83,12 +76,3 @@ with st.container(border=12):
         height=300,
         width=300,
     )
-
-# Custom CSS container closing tag
-custom_css_container_end = """
-    </div>
-</div>
-"""
-
-# Render the custom CSS container
-st.markdown(custom_css_container + custom_css_container_end, unsafe_allow_html=True)
