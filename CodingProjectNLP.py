@@ -2,11 +2,10 @@ import streamlit as st
 import pandas as pd
 import nltk
 from nltk.corpus import stopwords
-from streamlit_extras.stylable_container import stylable_container
 import re
 import pickle
 import streamlit.components.v1 as components
-
+from streamlit_extras.stylable_container import stylable_container
 
 # Download NLTK stopwords data
 nltk.download('stopwords')
