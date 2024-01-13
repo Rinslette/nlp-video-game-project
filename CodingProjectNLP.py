@@ -79,7 +79,7 @@ with st.container(border=12):
 
 css_body_container = f"""
 <style>
-background-color: coral;
+background-color: white;
 padding: 0.5em;
 border-radius: 1em;    
 </style>
