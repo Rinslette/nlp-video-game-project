@@ -77,13 +77,13 @@ with st.container(border=12):
         width=300,
     )
 
-css_body_container = f"""
+css_body_container = """
 <style>
 body {
     background-color: white;
     padding: 0.5em;
     border-radius: 1em;
-}  
+}
 </style>
 """
-st.markdown(css_body_container,unsafe_allow_html=True)
+st.markdown(css_body_container, unsafe_allow_html=True)
