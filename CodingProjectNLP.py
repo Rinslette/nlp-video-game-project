@@ -79,7 +79,7 @@ with st.container(border=12):
 
 css_container = """
 <style>
-body {
+.stApp {
     background-color: white;
     padding: 0.5em;
     border-radius: 1em;
