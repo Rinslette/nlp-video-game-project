@@ -79,9 +79,11 @@ with st.container(border=12):
 
 css_body_container = f"""
 <style>
-background-color: white;
-padding: 0.5em;
-border-radius: 1em;    
+body {
+    background-color: white;
+    padding: 0.5em;
+    border-radius: 1em;
+}  
 </style>
 """
 st.markdown(css_body_container,unsafe_allow_html=True)
