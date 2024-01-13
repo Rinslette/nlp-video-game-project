@@ -2,9 +2,11 @@ import streamlit as st
 import pandas as pd
 import nltk
 from nltk.corpus import stopwords
+from streamlit_extras.stylable_container import stylable_container
 import re
 import pickle
 import streamlit.components.v1 as components
+
 
 # Download NLTK stopwords data
 nltk.download('stopwords')
@@ -49,7 +51,6 @@ with c1:
         ],
     ):
         # Load the trained model and vectorizer using pickle
-        with st.container():
             with open('svmBOW.pkl', 'rb') as model_file:
                 model = pickle.load(model_file)
             with open('BOWvectorizer.pkl', 'rb') as vectorizer_file:
