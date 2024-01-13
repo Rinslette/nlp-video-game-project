@@ -28,20 +28,6 @@ page_bg_img = f"""
 """
 st.markdown(page_bg_img, unsafe_allow_html=True)
 
-css_container = """
-<style>
-.custom-container {
-    background-color: #f0f0f0;
-    padding: 1em;
-    border-radius: 1em;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-</style>
-"""
-
-# Render the custom CSS container
-st.markdown(css_container, unsafe_allow_html=True)
-
 with st.container():
     # Load the trained model and vectorizer using pickle
     with open('svmBOW.pkl', 'rb') as model_file:
@@ -73,14 +59,6 @@ with st.container():
         prediction = model.predict(input_vectorized)[0]
         # Display the predicted genre
         st.write(f"Predicted Genre: {prediction}")
-
-        st.markdown("""
-        <div class="custom-container">
-            <h3>Your Result:</h3>
-            <p>Cleaned Input: {}</p>
-            <p>Predicted Genre: {}</p>
-        </div>
-        """.format(cleaned_input, prediction), unsafe_allow_html=True)
     else:
         st.info("Please enter the name of the game to predict its genre.")
 
