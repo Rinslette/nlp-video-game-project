@@ -29,7 +29,7 @@ page_bg_img = f"""
 st.markdown(page_bg_img, unsafe_allow_html=True)
 
 
-with st.container(border=12):
+with st.container(border=12, style="background-color: #f0f0f0; padding: 1em; border-radius: 1em; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);"):
     # Load the trained model and vectorizer using pickle
     with open('svmBOW.pkl', 'rb') as model_file:
         model = pickle.load(model_file)
